@@ -1,0 +1,12 @@
+* {
+    font-family: monospace;
+}
+
+#wordsDisplay {
+    font-size: 16px;
+}
+
+#wordsInput {
+    resize: none;
+    outline: none;
+}
