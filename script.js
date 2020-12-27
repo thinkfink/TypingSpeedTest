@@ -3,9 +3,9 @@ $(function(){
     var wordsDisplayElement = document.getElementById('wordsDisplay');
     var wordsInputElement = document.getElementById('wordsInput');
     var timerElement = document.getElementById('timer');
+    var seconds = 60;
 
     function countdown(minutes){
-        var seconds = 60;
         var mins = minutes;
         function tick() {
             var timer = document.getElementById("timer");
@@ -22,14 +22,21 @@ $(function(){
         }
         tick();
      }
-    countdown(1);
 
-    /*change to only count down when user starts typing*/
-    
+    $(wordsInputElement).keydown(function startCountdown(){
+        if(seconds == 60){
+            countdown(1);
+            return true;
+        }else{
+            return true;
+        }
+    });
 
     /*change to only refresh wordInput and wordDisplay*/
     $("#redoButton").click(function(){
         location.reload();
         return false;
     });
+
+
 });
