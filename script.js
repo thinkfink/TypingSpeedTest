@@ -15,7 +15,7 @@ $(function(){
 			Arr_words.push(words[randomWord]);
 			words.splice(randomWord, 1);
         }
-        $(wordsDisplayElement).append(Arr_words).join(' ');
+        $(wordsDisplayElement).append(Arr_words);
     }
 
     function countdown(minutes){
@@ -45,6 +45,10 @@ $(function(){
         }else{
             return true;
         }
+    });
+
+    document.addEventListener('keydown', ({key}) => {
+        console.log(key);
     });
 
     /*change to only refresh wordInput and wordDisplay*/
