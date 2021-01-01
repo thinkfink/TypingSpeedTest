@@ -13,9 +13,9 @@ $(function(){
         for(var i = 0; i < wordCount; i++){
 			var randomWord = Math.floor(Math.random() * words.length);
 			Arr_words.push(words[randomWord]);
-			//words.splice(randomWord, 1);
+			words.splice(randomWord, 1);
         }
-        $(wordsDisplayElement).append(Arr_words);
+        $(wordsDisplayElement).append(Arr_words).join(' ');
     }
 
     function countdown(minutes){
@@ -36,9 +36,8 @@ $(function(){
         tick();
      }
 
-    //$(wordsDisplayElement).append(arrWords);
     displayWords();
-
+    
     $(wordsInputElement).keydown(function startCountdown(){
         if(seconds == 60){
             countdown(1);
