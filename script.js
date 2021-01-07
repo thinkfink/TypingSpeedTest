@@ -1,13 +1,33 @@
 $(function(){
     var words = [
-        "by","see","change","or","miss","you","though","away","those","got","much","mountain","line","went","below","these","night","way","begin","feet","as","most","might","every","life","into","such","write","people","off","hard","many","if","each","sometimes","go","eat","know","carry","just"
+        "by","see","change","or","miss","you","though","away","those","got",
+        "much","mountain","line","went","below","these","night","way","begin","feet",
+        "as","most","might","every","life","into","such","write","people","off",
+        "hard","many","if","each","sometimes","go","eat","know","carry","just",
+        "button","bizarre","irate","detect","bead","naughty","examine","continue","unable","spray",
+        "fish","coal","straw","foolish","used","dear","available","snake","shelf","silent",
+        "tricky","blind","knot","zippy","dusty","men","women","fang","slip","fragile",
+        "bright","hobbies","radiate","pour","poor","bake","drag","clear","crush","drop",
+        "label","wink","wander","zoom","snore","mug","dry","announce","add","drain",
+        "add","bump","trade","sail","wave","carve","whine","wine","move","plant",
+        "by","see","change","or","miss","you","though","away","those","got",
+        "much","mountain","line","went","below","these","night","way","begin","feet",
+        "as","most","might","every","life","into","such","write","people","off",
+        "hard","many","if","each","sometimes","go","eat","know","carry","just",
+        "button","bizarre","irate","detect","bead","naughty","examine","continue","unable","spray",
+        "fish","coal","straw","foolish","used","dear","available","snake","shelf","silent",
+        "tricky","blind","knot","zippy","dusty","men","women","fang","slip","fragile",
+        "bright","hobbies","radiate","pour","poor","bake","drag","clear","crush","drop",
+        "label","wink","wander","zoom","snore","mug","dry","announce","add","drain",
+        "add","bump","trade","sail","wave","carve","whine","wine","move","plant"
     ];
     var Arr_words = new Array();
     var wordsDisplayElement = document.getElementById('wordsDisplayText');
     var wordsInputElement = document.getElementById('wordsInput');
     var timerElement = document.getElementById('timer');
     var seconds = 60;
-    var wordCount = 40;
+    var wordCount = 200;
+    var correctWords = 0;
 
     function displayWords(){
         for(var i = 0; i < wordCount; i++){
@@ -57,12 +77,16 @@ $(function(){
     $(wordsInputElement).bind('keydown', function(event) {
         currentKey = event.key;
         cursorChar = displayedChars[cursorIndex];
-        console.log("display: " + cursorChar + ", input: " + event.key);
+        //console.log("display: " + cursorChar + ", input: " + event.key);
 
         if (currentKey == cursorChar){
             $(wordsInputElement).css('background-color','#91ffa2');
             cursorIndex++;
-        } else if(event.keyCode == 8){
+            if (event.keyCode == 32 && cursorChar == " "){
+                correctWords++;
+                console.log(correctWords);
+            }
+        } else if(event.keyCode == 8){ //if backspace is pressed
             cursorIndex--;
         } else{
             $(wordsInputElement).css('background-color','#ff9191');
