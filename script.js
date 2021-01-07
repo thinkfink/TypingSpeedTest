@@ -3,7 +3,7 @@ $(function(){
         "by","see","change","or","miss","you","though","away","those","got","much","mountain","line","went","below","these","night","way","begin","feet","as","most","might","every","life","into","such","write","people","off","hard","many","if","each","sometimes","go","eat","know","carry","just"
     ];
     var Arr_words = new Array();
-    var wordsDisplayElement = document.getElementById('wordsDisplay');
+    var wordsDisplayElement = document.getElementById('wordsDisplayText');
     var wordsInputElement = document.getElementById('wordsInput');
     var timerElement = document.getElementById('timer');
     var seconds = 60;
@@ -12,7 +12,7 @@ $(function(){
     function displayWords(){
         for(var i = 0; i < wordCount; i++){
 			var randomWord = Math.floor(Math.random() * words.length);
-			Arr_words.push(words[randomWord]);
+			Arr_words.push(words[randomWord] + " ");
 			words.splice(randomWord, 1);
         }
         $(wordsDisplayElement).append(Arr_words);
@@ -47,8 +47,27 @@ $(function(){
         }
     });
 
-    document.addEventListener('keydown', ({key}) => {
-        console.log(key);
+    var displayedChars = wordsDisplayElement.innerHTML.split('');
+    console.log(displayedChars);
+    $(wordsDisplayElement).empty().append(displayedChars);
+
+    var cursorIndex = 0;
+    var cursorChar = displayedChars[cursorIndex];
+
+    $(wordsInputElement).bind('keydown', function(event) {
+        currentKey = event.key;
+        cursorChar = displayedChars[cursorIndex];
+        console.log("display: " + cursorChar + ", input: " + event.key);
+
+        if (currentKey == cursorChar){
+            $(wordsInputElement).css('background-color','#91ffa2');
+            cursorIndex++;
+        } else if(event.keyCode == 8){
+            cursorIndex--;
+        } else{
+            $(wordsInputElement).css('background-color','#ff9191');
+            cursorIndex++;
+        }
     });
 
     /*change to only refresh wordInput and wordDisplay*/
