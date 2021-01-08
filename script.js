@@ -26,7 +26,7 @@ $(function(){
     var wordsInputElement = document.getElementById('wordsInput');
     var timerElement = document.getElementById('timer');
     var seconds = 60;
-    var wordCount = 200;
+    var wordCount = 20;
     var correctWords = 0;
 
     function displayWords(){
@@ -47,6 +47,10 @@ $(function(){
             timer.innerHTML = "<p class='display-3'>" + currentMinutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds) + "</p>";
             if(seconds > 0) {
                 setTimeout(tick, 1000);
+            } else if(seconds == 0){
+                $(wordsDisplayElement).empty();
+                $(wordsDisplayElement).append("<p>WPM: " + correctWords + "</p>");
+                $(wordsInputElement).prop('disabled', true);
             } else {
                 if(mins > 1){
                     countdown(mins-1);
@@ -80,16 +84,22 @@ $(function(){
         //console.log("display: " + cursorChar + ", input: " + event.key);
 
         if (currentKey == cursorChar){
-            $(wordsInputElement).css('background-color','#91ffa2');
+            $(wordsInputElement).css('background-color','#91ffa2'); //good key
             cursorIndex++;
             if (event.keyCode == 32 && cursorChar == " "){ //if space is pressed and expected
                 correctWords++;
                 console.log(correctWords);
+            } 
+        } else if (event.keyCode == 32){ //if space is pressed an not expected, move to mext word
+            if(cursorChar != " "){
+                cursorIndex++;
+                return;
+                //$(wordsInputElement).css('background-color','#91ffa2');
             }
         } else if(event.keyCode == 8){ //if backspace is pressed
             cursorIndex--;
         } else{
-            $(wordsInputElement).css('background-color','#ff9191');
+            $(wordsInputElement).css('background-color','#ff9191'); //bad key
             cursorIndex++;
         }
     });
