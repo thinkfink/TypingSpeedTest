@@ -1,9 +1,10 @@
 * {
     font-family: monospace;
+    color: lightgrey;
 }
 
 #wordsDisplay {
-    font-size: 16px;
+    font-size: 18px;
 }
 
 #wordsInput {

@@ -82,7 +82,7 @@ $(function(){
         if (currentKey == cursorChar){
             $(wordsInputElement).css('background-color','#91ffa2');
             cursorIndex++;
-            if (event.keyCode == 32 && cursorChar == " "){
+            if (event.keyCode == 32 && cursorChar == " "){ //if space is pressed and expected
                 correctWords++;
                 console.log(correctWords);
             }
