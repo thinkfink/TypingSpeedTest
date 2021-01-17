@@ -23,8 +23,9 @@
 
 .incorrect {
     color: #ff9191;
+    text-decoration: underline;
 }
 
 .hiddenWords {
-    font-size: xx-large;
+    font-size: x-large;
 }

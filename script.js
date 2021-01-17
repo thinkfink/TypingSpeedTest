@@ -83,7 +83,6 @@ $(function(){
     $(wordsInputElement).bind('keydown', function(event) {
         currentKey = event.key;
         var cursorChar = displayedChars[cursorIndex];
-        wpm = correctChars / 5;
         
         if (currentKey == cursorChar){
             $(wordsInputElement).css('background-color','#91ffa2'); //good key
@@ -91,25 +90,28 @@ $(function(){
             cursorIndex++;
             hiddenWordsIndex++;
             correctChars++;
-        } /*else if (event.keyCode == 32){ //if space is pressed an not expected, move to next word
-            if(cursorChar != " "){
-                cursorIndex++;
-                return;
-                //$(wordsInputElement).css('background-color','#91ffa2');
-            }
-        }*/ else if(event.keyCode == 8){ //if backspace is pressed
+        } else if ((event.keyCode == 32) && (cursorChar != " ")){ //if space is pressed an not expected, move to next word
+            $("#hiddenWord" + hiddenWordsIndex).addClass('incorrect');
+            cursorIndex++;
+            hiddenWordsIndex++;
+        } else if(event.keyCode == 8){ //if backspace is pressed
             $("#hiddenWord" + hiddenWordsIndex).removeClass('correct').removeClass('incorrect');
-            cursorIndex--;
-            hiddenWordsIndex--;
+            if(cursorIndex > 0){
+                cursorIndex--;
+                hiddenWordsIndex--;
+            }else{ //do not allow index to go negative
+                return false;
+            }
+            
         } else{
             $(wordsInputElement).css('background-color','#ff9191'); //bad key
             $("#hiddenWord" + hiddenWordsIndex).addClass('incorrect');
             cursorIndex++;
             hiddenWordsIndex++;
         }
+        wpm = correctChars / 5;
     });
 
-    /*change to only refresh wordInput and wordDisplay*/
     $("#redoButton").click(function(){
         location.reload();
         return false;
