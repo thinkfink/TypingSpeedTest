@@ -3,11 +3,44 @@
     color: lightgrey;
 }
 
-#wordsDisplay {
-    font-size: 18px;
+#wordsDisplayText {
+    font-size: 20px;
+    resize: none;
+    overflow: hidden;
+    height: 72px;
+    border: none;
+    color: lightgrey;
 }
 
 #wordsInput {
     resize: none;
-    outline: none;
+    overflow: auto;
 }
+
+#container {
+    position: relative;
+    min-height: 100vh;
+}
+  
+#wrapper {
+    padding-bottom: 2.5rem;    /* Footer height */
+}
+  
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.5rem;            /* Footer height */
+}
+
+.correct {
+    background-color: darkgrey;
+}
+
+.incorrect {
+    background-color: #ff9191;
+}
+
+/*.hiddenWords {
+    display: none;
+}*/

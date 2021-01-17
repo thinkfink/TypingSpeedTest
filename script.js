@@ -26,8 +26,10 @@ $(function(){
     var wordsInputElement = document.getElementById('wordsInput');
     var timerElement = document.getElementById('timer');
     var seconds = 60;
-    var wordCount = 20;
+    var wordCount = 200;
     var correctWords = 0;
+    var cursorIndex = 0;
+    var hiddenWordsIndex = 0;
 
     function displayWords(){
         for(var i = 0; i < wordCount; i++){
@@ -36,6 +38,10 @@ $(function(){
 			words.splice(randomWord, 1);
         }
         $(wordsDisplayElement).append(Arr_words);
+    }
+
+    function createWordDiv(item, index) {
+        $("#wordsDisplay").append("<span class='hiddenWords' id='hiddenWord" + index + "'>" /*+ index*/ + item + "</span>");
     }
 
     function countdown(minutes){
@@ -48,8 +54,7 @@ $(function(){
             if(seconds > 0) {
                 setTimeout(tick, 1000);
             } else if(seconds == 0){
-                $(wordsDisplayElement).empty();
-                $(wordsDisplayElement).append("<p>WPM: " + correctWords + "</p>");
+                $('#wordsDisplay').empty().append("<textarea id='wordsDisplayText' class='bg-dark form-control form-control-lg'>WPM: " + correctWords + "</textarea>");
                 $(wordsInputElement).prop('disabled', true);
             } else {
                 if(mins > 1){
@@ -58,10 +63,8 @@ $(function(){
             }
         }
         tick();
-     }
+    }
 
-    displayWords();
-    
     $(wordsInputElement).keydown(function startCountdown(){
         if(seconds == 60){
             countdown(1);
@@ -71,35 +74,36 @@ $(function(){
         }
     });
 
+    displayWords();
     var displayedChars = wordsDisplayElement.innerHTML.split('');
-    console.log(displayedChars);
-    $(wordsDisplayElement).empty().append(displayedChars);
-
-    var cursorIndex = 0;
-    var cursorChar = displayedChars[cursorIndex];
-
+    $(wordsDisplayElement).empty().append(displayedChars).hide();
+    displayedChars.forEach(createWordDiv);
+    
     $(wordsInputElement).bind('keydown', function(event) {
         currentKey = event.key;
-        cursorChar = displayedChars[cursorIndex];
-        //console.log("display: " + cursorChar + ", input: " + event.key);
+        var cursorChar = displayedChars[cursorIndex];
 
         if (currentKey == cursorChar){
             $(wordsInputElement).css('background-color','#91ffa2'); //good key
+            $("#hiddenWord" + hiddenWordsIndex).addClass('correct');
             cursorIndex++;
+            hiddenWordsIndex++;
+            
             if (event.keyCode == 32 && cursorChar == " "){ //if space is pressed and expected
                 correctWords++;
                 console.log(correctWords);
             } 
-        } else if (event.keyCode == 32){ //if space is pressed an not expected, move to mext word
+        } /*else if (event.keyCode == 32){ //if space is pressed an not expected, move to next word
             if(cursorChar != " "){
                 cursorIndex++;
                 return;
                 //$(wordsInputElement).css('background-color','#91ffa2');
             }
-        } else if(event.keyCode == 8){ //if backspace is pressed
+        }*/ else if(event.keyCode == 8){ //if backspace is pressed
             cursorIndex--;
         } else{
             $(wordsInputElement).css('background-color','#ff9191'); //bad key
+            $("#hiddenWord" + hiddenWordsIndex).addClass('incorrect');
             cursorIndex++;
         }
     });
