@@ -3,6 +3,12 @@
     color: lightgrey;
 }
 
+body {
+    background-image: url("/images/space.png");
+    background-color: black;
+    background-size: 1920px 1080px;
+}
+
 #wordsDisplayText {
     font-size: 20px;
     resize: none;
@@ -15,6 +21,15 @@
 #wordsInput {
     resize: none;
     overflow: auto;
+}
+
+#origBackgroundButton {
+    background-color: black;
+}
+
+#spaceBackgroundButton {
+    background-image: url("/images/space_button.png");
+    background-color: black;
 }
 
 .correct {

@@ -55,7 +55,7 @@ $(function(){
             if(seconds > 0) {
                 setTimeout(tick, 1000);
             } else if(seconds == 0){
-                $('#wordsDisplay').empty().append("<div id='wordsDisplayText' class='bg-dark form-control form-control-lg'>WPM: " + wpm + "</div>");
+                $('#wordsDisplay').empty().append("<div id='wordsDisplayText'>WPM: " + wpm + "</div>");
                 $('#wordsInput').empty();
             } else {
                 if(mins > 1){
@@ -115,5 +115,13 @@ $(function(){
     $("#redoButton").click(function(){
         location.reload();
         return false;
+    });
+    
+    $("#origBackgroundButton").click(function(){
+        $("body").css("background-image","none");
+    });
+
+    $("#spaceBackgroundButton").click(function(){
+        $("body").css("background-image","url('/images/space.png')");
     });
 });
