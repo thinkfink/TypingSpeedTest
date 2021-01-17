@@ -23,13 +23,14 @@ $(function(){
     ];
     var Arr_words = new Array();
     var wordsDisplayElement = document.getElementById('wordsDisplayText');
-    var wordsInputElement = document.getElementById('wordsInput');
+    var wordsInputElement = document.getElementById('wordsInputText');
     var timerElement = document.getElementById('timer');
     var seconds = 60;
-    var wordCount = 200;
-    var correctWords = 0;
+    var wordCount = 100;
+    var correctChars = 0;
     var cursorIndex = 0;
     var hiddenWordsIndex = 0;
+    var wpm = 0;
 
     function displayWords(){
         for(var i = 0; i < wordCount; i++){
@@ -54,8 +55,8 @@ $(function(){
             if(seconds > 0) {
                 setTimeout(tick, 1000);
             } else if(seconds == 0){
-                $('#wordsDisplay').empty().append("<textarea id='wordsDisplayText' class='bg-dark form-control form-control-lg'>WPM: " + correctWords + "</textarea>");
-                $(wordsInputElement).prop('disabled', true);
+                $('#wordsDisplay').empty().append("<div id='wordsDisplayText' class='bg-dark form-control form-control-lg'>WPM: " + wpm + "</div>");
+                $('#wordsInput').empty();
             } else {
                 if(mins > 1){
                     countdown(mins-1);
@@ -82,17 +83,14 @@ $(function(){
     $(wordsInputElement).bind('keydown', function(event) {
         currentKey = event.key;
         var cursorChar = displayedChars[cursorIndex];
-
+        wpm = correctChars / 5;
+        
         if (currentKey == cursorChar){
             $(wordsInputElement).css('background-color','#91ffa2'); //good key
-            $("#hiddenWord" + hiddenWordsIndex).addClass('correct');
+            $("#hiddenWord" + hiddenWordsIndex).addClass('correct').removeClass('incorrect');
             cursorIndex++;
             hiddenWordsIndex++;
-            
-            if (event.keyCode == 32 && cursorChar == " "){ //if space is pressed and expected
-                correctWords++;
-                console.log(correctWords);
-            } 
+            correctChars++;
         } /*else if (event.keyCode == 32){ //if space is pressed an not expected, move to next word
             if(cursorChar != " "){
                 cursorIndex++;
@@ -100,11 +98,14 @@ $(function(){
                 //$(wordsInputElement).css('background-color','#91ffa2');
             }
         }*/ else if(event.keyCode == 8){ //if backspace is pressed
+            $("#hiddenWord" + hiddenWordsIndex).removeClass('correct').removeClass('incorrect');
             cursorIndex--;
+            hiddenWordsIndex--;
         } else{
             $(wordsInputElement).css('background-color','#ff9191'); //bad key
             $("#hiddenWord" + hiddenWordsIndex).addClass('incorrect');
             cursorIndex++;
+            hiddenWordsIndex++;
         }
     });
 
