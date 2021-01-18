@@ -42,7 +42,7 @@ $(function(){
     }
 
     function createWordDiv(item, index) {
-        $("#wordsDisplay").append("<span class='shownWords' id='shownWord" + index + "'>" /*+ index*/ + item + "</span>");
+        $("#wordsDisplay").append("<span class='shownWords' id='shownWord" + index + "'>" + item + "</span>");
     }
 
     function countdown(minutes){
@@ -55,7 +55,7 @@ $(function(){
             if(seconds > 0) {
                 setTimeout(tick, 1000);
             } else if(seconds == 0){
-                $('#wordsDisplay').prepend("<div id='wordsDisplayText'>WPM: " + wpm + "</div>");
+                $('#timer').empty().append("<p class='display-3 id='wordsDisplayText'>WPM: " + wpm + "</p>");
                 $('#wordsInput').empty();
             } else {
                 if(mins > 1){
@@ -90,12 +90,10 @@ $(function(){
             cursorIndex++;
             shownWordsIndex++;
             correctChars++;
-        } else if ((event.keyCode == 32) && (cursorChar != " ")){ //if space is pressed an not expected, move to next word
-            if(cursorChar != " "){
-                $("#shownWord" + shownWordsIndex).addClass('incorrect');
+        } else if ((event.keyCode == 32) && (cursorChar != " ")){ //if space is pressed and not expected, move to next word
+            $("#shownWord" + shownWordsIndex).removeClass('correct').addClass('incorrect');
                 cursorIndex++;
                 shownWordsIndex++;
-            }
         } else if(event.keyCode == 8){ //if backspace is pressed
             if(cursorIndex > 0){
                 cursorIndex--;
@@ -119,11 +117,15 @@ $(function(){
     });
     
     $("#origBackgroundButton").click(function(){
-        $("body").css("background-image","none");
+        $(".background-image").css("background-image","none");
     });
 
     $("#spaceBackgroundButton").click(function(){
-        $("body").css("background-image","url('/images/space.png')");
+        $(".background-image").css("background-image","url('/images/space.png')");
+    });
+
+    $(".background-image").click(function(){
+        $("#wordsInputText").focus();
     });
 
     const bg = document.querySelector('.background-image');

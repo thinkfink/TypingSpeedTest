@@ -13,19 +13,28 @@ html, body {
 }
 
 #wrapper {
-    background: rgba(0, 0, 0, 0.75);
-    border-radius: 25px;
-    padding: 20px;
-    opacity: .99;
+    position: absolute;
+    pointer-events: none;
+    top: 50%;
+    bottom: 50%;
+    left: 50%;
+    transform: translate3d(-50%,-50%,0);
 }
 
-#wordsInput {
+#wordsInputText {
     resize: none;
     overflow: auto;
+    font-weight: bolder;
+    color: rgb(75, 75, 75);
+}
+
+#redoButton {
+    pointer-events: all;
 }
 
 #origBackgroundButton, #spaceBackgroundButton {
     height: 16px 12px;
+    pointer-events: all;
 }
 
 #origBackgroundButton {
@@ -37,13 +46,13 @@ html, body {
 }
 
 .background-image{
-    background-image: url("/images/space.png");
-    background-size: 1920px 1080px;
     width: 110%;
     height: 110%;
     left: 0;
     top: 0;
     position: absolute;
+    background-image: url("/images/space.png");
+    background-size: 1920px 1080px;
 }
 
 .correct {
@@ -56,6 +65,5 @@ html, body {
 }
 
 .shownWords {
-    pointer-events: none;
     font-size: x-large;
 }
