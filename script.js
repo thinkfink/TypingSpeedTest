@@ -38,7 +38,7 @@ $(function(){
 			Arr_words.push(words[randomWord] + " ");
 			words.splice(randomWord, 1);
         }
-        $(wordsDisplayElement).append(Arr_words);
+        $(wordsDisplayElement).append(Arr_words).hide();
     }
 
     function createWordDiv(item, index) {
@@ -92,8 +92,9 @@ $(function(){
             correctChars++;
         } else if ((event.keyCode == 32) && (cursorChar != " ")){ //if space is pressed and not expected, move to next word
             $("#shownWord" + shownWordsIndex).removeClass('correct').addClass('incorrect');
-                cursorIndex++;
-                shownWordsIndex++;
+            $(wordsInputElement).css('background-color','#ff9191');
+            cursorIndex++;
+            shownWordsIndex++;
         } else if(event.keyCode == 8){ //if backspace is pressed
             if(cursorIndex > 0){
                 cursorIndex--;
