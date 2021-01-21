@@ -24,6 +24,7 @@ $(function(){
     const wordsDisplayElement = document.getElementById('wordsDisplayText');
     const wordsInputElement = document.getElementById('wordsInputText');
     const timerElement = document.getElementById('timer');
+    var displayedChars;
     var Arr_words = new Array();
     var seconds = 60;
     var wordCount = 100;
@@ -38,11 +39,12 @@ $(function(){
 			Arr_words.push(words[randomWord] + " ");
 			words.splice(randomWord, 1);
         }
-        $(wordsDisplayElement).append(Arr_words).hide();
+        displayedChars = Arr_words.join('').toString().split('');
+        console.log(displayedChars);
     }
 
     function createWordDiv(item, index) {
-        $("#wordsDisplay").append("<span class='shownWords' id='shownWord" + index + "'>" + item + "</span>");
+        $(wordsDisplayElement).append("<span class='shownWords' id='shownWord" + index + "'>" + item + "</span>");
     }
 
     function countdown(minutes){
@@ -55,7 +57,7 @@ $(function(){
             if(seconds > 0) {
                 setTimeout(tick, 1000);
             } else if(seconds == 0){
-                $('#timer').empty().append("<p class='display-3 id='wordsDisplayText'>WPM: " + wpm + "</p>");
+                $(timerElement).empty().append("<p class='display-3 id='wordsDisplayText'>WPM: " + wpm + "</p>");
                 $('#wordsInput').empty();
             } else {
                 if(mins > 1){
@@ -76,8 +78,6 @@ $(function(){
     });
 
     displayWords();
-    const displayedChars = wordsDisplayElement.innerHTML.split('');
-    $(wordsDisplayElement).empty().append(displayedChars).hide();
     displayedChars.forEach(createWordDiv);
     
     $(wordsInputElement).bind('keydown', function(event) {
