@@ -19,7 +19,8 @@ $(function(){
     const background = document.querySelector('.background-image');
     const windowWidth = window.innerWidth / 2;
     const windowHeight = window.innerHeight / 2;
-    var Arr_randomWords = new Array();
+    var randomWords = new Array();
+    //var spaces = 0;
     var characters;
     var seconds = 60;
     var wpm = 0;
@@ -30,14 +31,20 @@ $(function(){
     function generateWords(){
         for(let i = 0; i < wordCount; i++){
 			let randomWord = Math.floor(Math.random() * words.length);
-			Arr_randomWords.push(words[randomWord] + " ");
+			randomWords.push(words[randomWord] + " ");
 			words.splice(randomWord, 1);
         }
-        characters = Arr_randomWords.join('').toString().split('');
+        characters = randomWords.join('').toString().split('');
     }
 
     function createCharSpan(item, index) {
         $(wordsDisplayElement).append("<span class='displayedChars' id='displayedChar" + index + "'>" + item + "</span>");
+        /*if(item == " "){
+            space++;
+            if((space%10 == 1) && (space != 1)){ //for every 10 spaces, create <br />
+                $(wordsDisplayElement).append("<br />");
+            }
+        }*/
     }
 
     function countdown(minutes){

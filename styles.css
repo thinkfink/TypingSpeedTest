@@ -21,6 +21,10 @@ html, body {
     transform: translate3d(-50%,-50%,0);
 }
 
+/*#wordsDisplay {
+    height: 124px;
+}*/
+
 #wordsInputText {
     resize: none;
     overflow: auto;
